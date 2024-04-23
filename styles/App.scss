@@ -1,0 +1,32 @@
+@import '_variables';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: $main-dark;
+  color: $headers-dark;
+  font-family: 'Poppins', sans-serif;
+  text-transform: capitalize;
+}
+
+
+body::-webkit-scrollbar {
+  width: $scrollBarSize; 
+}
+
+body::-webkit-scrollbar-thumb {
+  background: $button-main;
+  border-radius: 10px;
+}
+
+/*
+body::-webkit-scrollbar-track {
+  background: $button-secondary;
+  border-radius: 10px;
+}
+*/
