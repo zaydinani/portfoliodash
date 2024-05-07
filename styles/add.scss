@@ -1,0 +1,97 @@
+@import "_variables";
+main {
+  @include flex(center, center, column, _);
+  h1 {
+    margin: 2rem 0;
+  }
+  form {
+    @include flex(_, _, column, 1rem);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background-color: $secondary-color-dark;
+    border-radius: 8px;
+    width: 400px;
+    .input {
+      height: 2rem;
+      width: 100%;
+      border-radius: 8px;
+      background-color: $button-secondary;
+      outline: none;
+      padding: 10px;
+      border: none;
+      &::placeholder {
+        color: $paragraph-font-dark;
+      }
+    }
+    textarea {
+      height: 10rem;
+      resize: none;
+      width: 100%;
+      border-radius: 8px;
+      background-color: $button-secondary;
+      outline: none;
+      padding: 10px;
+      border: none;
+      &::placeholder {
+        color: $paragraph-font-dark;
+      }
+    }
+    .imageInput {
+      border: none;
+      padding: 0.5rem;
+      border-radius: 8px;
+      width: 100%;
+      background-color: $button-secondary;
+      color: $paragraph-font-dark;
+    }
+    #date {
+      background-color: $button-secondary;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 8px;
+      text-transform: uppercase;
+      color: $paragraph-font-dark;
+      outline: none;
+    }
+    .project_skills {
+      flex-wrap: wrap;
+      @include flex(flex-start, _, _, _);
+      .project_skill {
+        background-color: $button-secondary;
+        color: $paragraph-font-dark;
+        border-radius: 8px;
+        padding: 0.5rem;
+        @include flex(_, _, _, 0.5rem);
+        margin: 0.5rem 1rem 0.5rem 0rem;
+      }
+    }
+    button {
+      height: 2rem;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      background-color: $button-main;
+      color: $headers-dark;
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+      border: none;
+      transition: 0.5s ease-in-out;
+      letter-spacing: 3px;
+      &:hover {
+        scale: 1.01;
+        background-color: $hover;
+        color: black;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  main {
+    form {
+      width: 95%;
+    }
+  }
+}
