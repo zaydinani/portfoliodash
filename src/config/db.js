@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-const mongodb_url = `mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@maindashboard.fbvwidm.mongodb.net/?retryWrites=true&w=majority`;
 const { MONGODB_USERNAME, MONGODB_PASSWORD } = process.env;
+const mongodb_url = `mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@maindashboard.fbvwidm.mongodb.net/?retryWrites=true&w=majority`;
 
 if (!MONGODB_USERNAME || !MONGODB_PASSWORD) {
   throw new Error(

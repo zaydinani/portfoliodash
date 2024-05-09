@@ -5,7 +5,7 @@ import data from "../data/data.json";
 import connectDB from "../config/db";
 
 function Auth() {
-  connectDB();
+  //connectDB();
   return (
     <main>
       <div className="auth_container">
