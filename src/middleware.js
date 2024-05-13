@@ -8,11 +8,12 @@ export default withAuth({
 
       // Allow access to the sign-in page and public assets
       if (pathname === "/" || pathname.startsWith("/LOGO3.png")) {
-        return true;
+        //console.log("User is not authenticated, redirecting to sign in");
+        return true; // Allow access
       }
 
       // Protect all other routes
-      return !!token;
+      return !!token; // Allow access to protected routes only if authenticated
     },
   },
   pages: {

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { getSession } from "next-auth/react";
 
 //my styles
 import "../styles/auth.scss";
@@ -15,6 +16,17 @@ function Login() {
   const [password, setPassword] = useState(""); // State for password
   const [error, setError] = useState(null); // State for error messages
   const [staySignedIn, setStaySignedIn] = useState(false);
+  // Check authentication on component mount
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      const session = await getSession();
+      if (session) {
+        console.log("User is authenticated, redirecting to dashboard");
+        router.push("/dashboard");
+      }
+    };
+    checkAuthentication();
+  }, []);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
