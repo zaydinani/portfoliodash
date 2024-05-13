@@ -2,7 +2,7 @@
 import Link from "next/link";
 import "../../styles/add.scss";
 
-function Auth() {
+function addProject() {
   return (
     <main className="skill_container">
       <h1>add project</h1>
@@ -97,4 +97,4 @@ function Auth() {
     </main>
   );
 }
-export default Auth;
+export default addProject;

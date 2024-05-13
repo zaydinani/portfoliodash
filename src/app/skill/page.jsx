@@ -2,7 +2,7 @@
 import Link from "next/link";
 import "../../styles/add.scss";
 
-function Auth() {
+function addSkill() {
   return (
     <main className="skill_container">
       <h1>add skill</h1>
@@ -31,4 +31,4 @@ function Auth() {
     </main>
   );
 }
-export default Auth;
+export default addSkill;
