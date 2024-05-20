@@ -1,4 +1,4 @@
-@import '_variables';
+@import "_variables";
 
 * {
   margin: 0;
@@ -10,20 +10,23 @@ body {
   margin: 0;
   background-color: $main-dark;
   color: $headers-dark;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   text-transform: capitalize;
 }
 
-
 body::-webkit-scrollbar {
-  width: $scrollBarSize; 
+  width: $scrollBarSize;
 }
 
 body::-webkit-scrollbar-thumb {
   background: $button-main;
   border-radius: 10px;
 }
-
+.loading-container {
+  height: 100vh;
+  width: 100vw;
+  @include flex(center, center, _, _);
+}
 /*
 body::-webkit-scrollbar-track {
   background: $button-secondary;

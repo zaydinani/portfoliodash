@@ -1,7 +1,7 @@
 import DashSideBar from "../../components/dashSideBar";
 import ProjectsCard from "../../components/projects";
 import SkillCard from "../../components/skillCard";
-
+import Link from "next/link";
 import "../../styles/dashMain.scss";
 
 function dashMain() {
@@ -10,33 +10,39 @@ function dashMain() {
       <DashSideBar />
       <div className="dash_container">
         <div className="cards_container">
-          <h1 className="titles">articles</h1>
+          <div className="head_container">
+            <h1 className="titles">articles</h1>
+          </div>
           <div className="projects">
             <ProjectsCard />
             <ProjectsCard />
           </div>
           <div className="more">
-            <a href="#">see all</a>
+            <Link href="/articles">see all</Link>
           </div>
         </div>
         <div className="cards_container">
-          <h1 className="titles">projects</h1>
+          <div className="head_container">
+            <h1 className="titles">projects</h1>
+          </div>
           <div className="projects">
             <ProjectsCard />
             <ProjectsCard />
           </div>
           <div className="more">
-            <a href="#">see all</a>
+            <Link href="/projects">see all</Link>
           </div>
         </div>
         <div className="cards_container">
-          <h1 className="titles">skills</h1>
+          <div className="head_container">
+            <h1 className="titles">skills</h1>
+          </div>
           <div className="projects">
             <SkillCard />
             <SkillCard />
           </div>
           <div className="more">
-            <a href="#">see all</a>
+            <Link href="/skills">see all</Link>
           </div>
         </div>
       </div>

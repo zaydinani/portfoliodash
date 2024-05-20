@@ -62,7 +62,14 @@ export const options = {
       return session;
     },
   },
+
   pages: {
     signIn: "/",
+  },
+  theme: {
+    colorScheme: "dark", // "auto" | "dark" | "light"
+    brandColor: "#5552FF", // Hex color code
+    logo: "/LOGO3.png", // Absolute URL to image
+    buttonText: "#FFFFFF", // Hex color code
   },
 };

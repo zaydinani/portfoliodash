@@ -4,17 +4,17 @@ main {
   height: 100vh;
   @include flex(space-evenly, center, column, _);
   .auth_container {
-    height: 25rem;
+    height: fit-content;
     width: 20rem;
-    @include flex(space-evenly, center, column, _);
+    @include flex(space-evenly, center, column, 1rem);
     img {
       height: 5rem;
       width: 5rem;
     }
     form {
-      height: 60%;
+      height: fit-content;
       width: 90%;
-      padding: 15px;
+      padding: 25px 15px;
       background-color: $secondary-color-dark;
       border-radius: 8px;
       @include flex(space-evenly, flex-start, column, 0.7rem);
@@ -74,6 +74,27 @@ main {
           }
         }
       }
+    }
+    //ALERT MSGS
+    .alert {
+      width: 90%;
+      padding: 16px;
+      margin-top: 1rem;
+      .alert-title {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 18px;
+        font-family: "Poppins", sans-serif;
+      }
+      .alert-content {
+        margin: 0;
+        font-size: 18px;
+        font-family: "Open Sans", sans-serif;
+        color: #555555;
+      }
+    }
+    .alert-3-danger {
+      @include alert-3($danger-color);
     }
   }
 }

@@ -1,15 +1,15 @@
 "use client";
 //my styles
+import { useRouter } from "next/navigation";
+import react, { useState } from "react";
 import "../../styles/auth.scss";
 import Link from "next/link";
 import data from "../../data/data.json";
-import { useRouter } from "next/navigation";
-import react, { useState } from "react";
 
 function signUp() {
   const router = useRouter();
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState(null); // State for error messages
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -20,7 +20,16 @@ function signUp() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage("");
+
+    // Password validation with regular expression
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      setError(
+        "Password must contain at least one uppercase letter, lowercase letter, number, and symbol."
+      );
+      return;
+    }
     const res = await fetch("/api/admins", {
       method: "POST",
       body: JSON.stringify({ formData }),
@@ -31,7 +40,7 @@ function signUp() {
       setErrorMessage(response.message);
     } else {
       router.refresh();
-      router.push("/");
+      router.push("/dashboard");
     }
   };
   return (
@@ -66,13 +75,20 @@ function signUp() {
             type="password"
             placeholder="confirm your passoword"
             required
+            <p className="writing">
+              Or Sign In <Link href="/">here</Link>
+            </p>
           />
           */}
           <button type="submit">Sign up</button>
-          <p className="writing">
-            Or Sign In <Link href="/">here</Link>
-          </p>
         </form>
+        {/* Display errors */}
+        {error && (
+          <div class="alert alert-3-danger">
+            <h3 class="alert-title">error</h3>
+            <p class="alert-content">{error}</p>
+          </div>
+        )}
       </div>
     </main>
   );

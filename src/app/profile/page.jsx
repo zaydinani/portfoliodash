@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import "../../styles/profile.scss";
 
 const profile = async () => {
   const session = await getServerSession(options);

@@ -6,7 +6,6 @@ import { getSession } from "next-auth/react";
 
 //my styles
 import "../styles/auth.scss";
-import Link from "next/link";
 import data from "../data/data.json";
 
 function Login() {
@@ -15,7 +14,6 @@ function Login() {
   const [name, setName] = useState(""); // State for username/email
   const [password, setPassword] = useState(""); // State for password
   const [error, setError] = useState(null); // State for error messages
-  const [staySignedIn, setStaySignedIn] = useState(false);
   // Check authentication on component mount
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -30,12 +28,6 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Form validation (optional, but recommended for security and UX)
-    if (!name || !password) {
-      setError("Please enter your username or email and password.");
-      return;
-    }
-
     try {
       const result = await signIn("credentials", {
         redirect: false, // Prevent automatic redirection
@@ -45,10 +37,9 @@ function Login() {
 
       if (!result.error) {
         console.log("Sign in successful!");
-        router.refresh();
-        router.push("/profile");
+        router.replace("/dashboard"); // Prevent accidental back button logout
       } else {
-        setError("name or password is wrong"); // Display error messages from NextAuth.js
+        setError("Username or password is wrong"); // Display error messages
         console.log(result.error);
       }
     } catch (error) {
@@ -81,21 +72,21 @@ function Login() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <label>
-            <input
-              type="checkbox"
-              checked={staySignedIn}
-              onChange={(event) => setStaySignedIn(event.target.checked)}
-            />
-            Stay signed in
-          </label>
+
           <button type="submit">Sign In</button>
+          {/* 
           <p className="writing">
             Or Sign Up <Link href="/signup">here</Link>
           </p>
-          {error && <p className="error-message">{error}</p>}{" "}
-          {/* Display errors */}
+          */}
         </form>
+        {/* Display errors */}
+        {error && (
+          <div class="alert alert-3-danger">
+            <h3 class="alert-title">error</h3>
+            <p class="alert-content">{error}</p>
+          </div>
+        )}
       </div>
     </main>
   );
