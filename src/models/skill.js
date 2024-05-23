@@ -1,7 +1,10 @@
+// src/models/skill.js
+
 import mongoose, { Schema } from "mongoose";
 import connectDB from "../config/db";
 
 connectDB();
+
 const skillSchema = new Schema(
   {
     name: {

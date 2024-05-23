@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import "../../styles/dashMain.scss";
 
-function allProjects() {
+function allSkills() {
   return (
     <>
       <DashSideBar />
@@ -37,4 +37,4 @@ function allProjects() {
   );
 }
 
-export default allProjects;
+export default allSkills;

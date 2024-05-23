@@ -86,11 +86,35 @@ main {
       }
     }
   }
+  //ALERT MSGS
+  .alert {
+    width: 400px;
+    padding: 16px;
+    margin-top: 1rem;
+    .alert-title {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-family: "Poppins", sans-serif;
+    }
+    .alert-content {
+      margin: 0;
+      font-size: 18px;
+      font-family: "Open Sans", sans-serif;
+      color: #555555;
+    }
+  }
+  .alert-3-danger {
+    @include alert-3($danger-color);
+  }
 }
 
 @media screen and (max-width: 425px) {
   main {
     form {
+      width: 95%;
+    }
+    .alert {
       width: 95%;
     }
   }
