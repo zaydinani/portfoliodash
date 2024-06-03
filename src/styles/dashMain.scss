@@ -32,6 +32,8 @@
   .cards_container {
     .projects {
       @include flex(space-around, _, row, 1rem);
+      flex-wrap: wrap;
+
       .project {
         border: 1px solid $borders;
         height: 27rem;

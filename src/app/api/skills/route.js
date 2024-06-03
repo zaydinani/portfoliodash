@@ -4,20 +4,21 @@ import path from "path";
 import connectDB from "../../../config/db";
 import Skill from "../../../models/skill";
 
-// Connect to the database
+//! Connect to the database
 connectDB();
 
-// Handler for GET requests to fetch skills
+//! Handler for GET requests to fetch skills
 export const GET = async (req) => {
   try {
-    const skills = await Skill.find({});
-    return NextResponse.json(skills);
+    await connectDB();
+    const skills = await Skill.find();
+    return NextResponse.json(skills); // Ensure this line returns JSON data
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 };
 
-// Handler for POST requests to add a new skill
+//! Handler for POST requests to add a new skill
 export const POST = async (req) => {
   const formData = await req.formData();
   const name = formData.get("name");
@@ -52,7 +53,7 @@ export const POST = async (req) => {
   }
 };
 
-// Config to disable body parsing for form data handling
+//? Config to disable body parsing for form data handling
 export const config = {
   api: {
     bodyParser: false,
