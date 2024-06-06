@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios"; // Import axios
 import "../styles/dashMain.scss";
 
-// Component to render the skills page
-export default function Page() {
+// Component to render the cards container
+export default function CardsContainer({ limit }) {
   const [skills, setSkills] = useState([]); // State to store fetched data
 
   useEffect(() => {
@@ -19,7 +19,11 @@ export default function Page() {
           throw new Error("Failed to fetch data");
         }
 
-        const skillsData = res.data;
+        let skillsData = res.data;
+        // Apply limit if provided
+        if (limit) {
+          skillsData = skillsData.slice(0, limit);
+        }
 
         // Format the dates
         const formattedSkills = skillsData.map((skill) => ({
@@ -35,7 +39,7 @@ export default function Page() {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures fetching only once
+  }, [limit]); // Fetch data whenever the limit changes
 
   // Helper function to format the date
   const formatDate = (dateString) => {
@@ -47,7 +51,7 @@ export default function Page() {
     return new Intl.DateTimeFormat("en-GB", options).format(date);
   };
 
-  // Delete skills
+  // Delete skill
   const handleDelete = async (_id) => {
     console.log("Deleting skill with _id:", _id);
 

@@ -1,17 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
-import "../../styles/add.scss";
+import "../../../styles/add.scss";
 
-function addProject() {
+function EditProject() {
   const router = useRouter();
-
+  const { id: projectId } = useParams();
   const [skills, setSkills] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [projectData, setProjectData] = useState({
-    projectName: "",
+    projectTitle: "",
     projectType: "",
     projectUrl: "",
     githubUrl: "",
@@ -20,15 +19,23 @@ function addProject() {
     dateFinished: "",
     selectedSkills: [],
   });
-  const [projectLogo, setProjectLogo] = useState(null); // New state for project logo
-  const [projectMainImages, setProjectMainImages] = useState([]); // New state for project main images
-  const [projectSecondaryImages, setProjectSecondaryImages] = useState([]); // Updated state for project gallery
-  //fetch all skills
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [projectLogo, setProjectLogo] = useState(null);
+  const [projectLogoUrl, setProjectLogoUrl] = useState(""); // State for project logo URL
+  const [projectMainImages, setProjectMainImages] = useState([]);
+  const [projectMainImagesUrls, setProjectMainImagesUrls] = useState([]); // State for project main images URLs
+  const [projectSecondaryImages, setProjectSecondaryImages] = useState([]);
+  const [projectSecondaryImagesUrls, setProjectSecondaryImagesUrls] = useState(
+    []
+  ); // State for project gallery images URLs
+
+  // Fetch all skills
   useEffect(() => {
     const fetchSkills = async () => {
       try {
         const response = await axios.get("/api/skills");
         setSkills(response.data || []);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
         setErrorMessage("Error fetching skills.");
@@ -37,7 +44,42 @@ function addProject() {
 
     fetchSkills();
   }, []);
-  //handle normal text input
+
+  // Fetch project data for editing
+  useEffect(() => {
+    const fetchProjectData = async () => {
+      try {
+        const response = await axios.get(`/api/projects/${projectId}`);
+        const project = response.data.project;
+
+        setProjectData({
+          projectTitle: project.projectTitle,
+          projectType: project.projectType,
+          projectUrl: project.projectUrl,
+          githubUrl: project.githubUrl,
+          projectDescription1: project.projectDescription1,
+          projectDescription2: project.projectDescription2,
+          dateFinished: project.dateFinished,
+          selectedSkills: project.projectSkills.map((skill) =>
+            skill.toString()
+          ), // Convert ObjectIds to strings
+        });
+
+        // Set the images URLs
+        setProjectLogoUrl(project.projectLogo);
+        setProjectMainImagesUrls(project.projectMainImages);
+        setProjectSecondaryImagesUrls(project.projectSecondaryImages);
+      } catch (error) {
+        console.error(error);
+        setErrorMessage("Error fetching project data.");
+      }
+    };
+
+    if (projectId) {
+      fetchProjectData();
+    }
+  }, [projectId]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProjectData({
@@ -45,21 +87,23 @@ function addProject() {
       [name]: value,
     });
   };
-  //handle checkbox input
+
   const handleCheckboxChange = (e) => {
     const { id, checked } = e.target;
+    console.log("Checkbox ID:", id);
+    console.log("Checkbox Checked:", checked);
+
     setProjectData((prevData) => ({
       ...prevData,
       selectedSkills: checked
         ? [...prevData.selectedSkills, id]
-        : prevData.selectedSkills.filter((skill) => skill !== id),
+        : prevData.selectedSkills.filter((skillId) => skillId !== id),
     }));
   };
-  //handle one file for image project logo
+
   const handleFileChange = (e) => {
     setProjectLogo(e.target.files[0]);
   };
-  //handle many files for images project
 
   const handleMultipleFilesChange = (e, setImages) => {
     setImages([...e.target.files]);
@@ -69,7 +113,7 @@ function addProject() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("projectTitle", projectData.projectName);
+    formData.append("projectTitle", projectData.projectTitle);
     formData.append("projectType", projectData.projectType);
     formData.append("projectUrl", projectData.projectUrl);
     formData.append("githubUrl", projectData.githubUrl);
@@ -80,7 +124,9 @@ function addProject() {
       "projectSkills",
       JSON.stringify(projectData.selectedSkills)
     );
-    formData.append("projectLogo", projectLogo); // Append the project logo
+    if (projectLogo) {
+      formData.append("projectLogo", projectLogo);
+    }
 
     // Append multiple files for project main images
     projectMainImages.forEach((file) => {
@@ -93,7 +139,7 @@ function addProject() {
     });
 
     try {
-      const response = await axios.post("/api/projects", formData, {
+      const response = await axios.put(`/api/projects/${projectId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -110,58 +156,63 @@ function addProject() {
       ) {
         setErrorMessage(error.response.data.message);
       } else {
-        setErrorMessage("Error adding project. Please try again.");
+        setErrorMessage("Error updating project. Please try again.");
       }
     }
   };
-
   return (
     <main className="skill_container">
-      <h1>add project</h1>
+      <h1>Edit Project</h1>
       <form onSubmit={handleSubmit}>
         <input
           className="input"
-          name="projectName"
+          name="projectTitle"
           type="text"
-          placeholder="project title"
+          placeholder="Project Title"
           required
           onChange={handleInputChange}
+          value={projectData.projectTitle}
         />
         <input
           className="input"
           name="projectType"
           type="text"
-          placeholder="project type"
+          placeholder="Project Type"
           required
           onChange={handleInputChange}
+          value={projectData.projectType}
         />
         <input
           className="input"
           name="projectUrl"
           type="text"
-          placeholder="project url"
+          placeholder="Project URL"
           required
           onChange={handleInputChange}
+          value={projectData.projectUrl}
         />
         <input
           className="input"
           name="githubUrl"
           type="text"
-          placeholder="github url"
+          placeholder="GitHub URL"
           required
           onChange={handleInputChange}
+          value={projectData.githubUrl}
         />
         <textarea
           name="projectDescription1"
-          placeholder="project description 1"
+          placeholder="Project Description 1"
           required
           onChange={handleInputChange}
+          value={projectData.projectDescription1}
         />
         <textarea
           name="projectDescription2"
-          placeholder="project description 2"
+          placeholder="Project Description 2"
           required
           onChange={handleInputChange}
+          value={projectData.projectDescription2}
         />
         <label htmlFor="date">Choose a date:</label>
         <input
@@ -169,8 +220,14 @@ function addProject() {
           id="date"
           name="dateFinished"
           onChange={handleInputChange}
+          value={projectData.dateFinished}
         />
         <label htmlFor="projectLogo">Project Logo</label>
+        {projectLogoUrl && (
+          <div className="image-preview">
+            <img src={projectLogoUrl} alt="Project Logo" />
+          </div>
+        )}
         <input
           type="file"
           id="projectLogo"
@@ -179,6 +236,11 @@ function addProject() {
           onChange={handleFileChange}
         />
         <label htmlFor="projectMainImages">Project Main Images</label>
+        <div className="image-preview">
+          {projectMainImagesUrls.map((url, index) => (
+            <img src={url} alt={`Project Main ${index + 1}`} />
+          ))}
+        </div>
         <input
           type="file"
           id="projectMainImages"
@@ -188,6 +250,11 @@ function addProject() {
           onChange={(e) => handleMultipleFilesChange(e, setProjectMainImages)}
         />
         <label htmlFor="projectSecondaryImages">Project Gallery Images</label>
+        <div className="image-preview">
+          {projectSecondaryImagesUrls.map((url, index) => (
+            <img src={url} alt={`Project Gallery ${index + 1}`} />
+          ))}
+        </div>
         <input
           type="file"
           id="projectSecondaryImages"
@@ -208,6 +275,7 @@ function addProject() {
                   id={skill._id}
                   name={skill.name}
                   onChange={handleCheckboxChange}
+                  checked={projectData.selectedSkills.includes(skill._id)}
                 />
               </div>
             ))
@@ -215,11 +283,11 @@ function addProject() {
             <p>Loading skills...</p>
           )}
         </div>
-        <button type="submit">submit</button>
+        <button type="submit">Submit</button>
       </form>
       {errorMessage && <div className="error">{errorMessage}</div>}
     </main>
   );
 }
 
-export default addProject;
+export default EditProject;

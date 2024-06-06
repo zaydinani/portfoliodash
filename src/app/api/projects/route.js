@@ -2,7 +2,24 @@ import { NextResponse } from "next/server";
 import Project from "../../../models/projects";
 import fs from "fs/promises";
 import path from "path";
+import connectDB from "../../../config/db";
 
+//! Connect to the database
+connectDB();
+
+//! Handler for GET requests to fetch skills
+export const GET = async (req) => {
+  try {
+    await connectDB();
+    const projects = await Project.find();
+    console.log(projects);
+    return NextResponse.json(projects); // Ensure this line returns JSON data
+  } catch (err) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+};
+
+//! post request to add project
 export const POST = async (req) => {
   const formData = await req.formData();
   const projectTitle = formData.get("projectTitle");

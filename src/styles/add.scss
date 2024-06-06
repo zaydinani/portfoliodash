@@ -1,4 +1,19 @@
 @import "_variables";
+
+/* Add this to your styles/add.scss or the relevant stylesheet */
+.image-preview {
+  display: inline-block;
+  margin: 5px;
+  width: 100%;
+  flex-wrap: wrap;
+  @include flex(space-between, _, _, 0.5rem);
+}
+
+.image-preview img {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  object-fit: cover;
+}
 main {
   @include flex(center, center, column, _);
   h1 {

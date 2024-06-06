@@ -1,7 +1,6 @@
 import DashSideBar from "../../components/dashSideBar";
-import ProjectsCard from "../../components/projects";
 import Link from "next/link";
-
+import ProjectContainer from "../../components/projectsCardContainer";
 import "../../styles/dashMain.scss";
 
 function allProjects() {
@@ -26,10 +25,7 @@ function allProjects() {
             </Link>
           </div>
 
-          <div className="projects">
-            <ProjectsCard />
-            <ProjectsCard />
-          </div>
+          <ProjectContainer />
         </div>
       </div>
     </>
