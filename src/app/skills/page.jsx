@@ -4,7 +4,7 @@ import CardsContainer from "../../components/cardsContainer";
 import "../../styles/dashMain.scss";
 
 // Component to render the skills page
-export default function Page() {
+export default function Skills() {
   return (
     <>
       <DashSideBar />
