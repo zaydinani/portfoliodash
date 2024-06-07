@@ -1,6 +1,6 @@
 import React from "react";
 import { getServerSession } from "next-auth";
-import { options } from "../App/api/auth/[...nextauth]/options";
+import { options } from "../api/auth/[...nextauth]/options";
 import Link from "next/link";
 import "../../styles/profile.scss";
 
