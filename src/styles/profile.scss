@@ -1,1 +1,24 @@
 @import "_variables";
+
+.container {
+  height: 100vh;
+  @include flex(center, center, column, 1rem);
+  img {
+    height: 5rem;
+    border-radius: 50%;
+  }
+  .imageInput {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background-color: $button-secondary;
+    color: $paragraph-font-dark;
+  }
+  a {
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    color: black;
+    border-radius: 12px;
+    background-color: $button-secondary;
+  }
+}
