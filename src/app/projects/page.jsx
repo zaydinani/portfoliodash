@@ -3,7 +3,7 @@ import Link from "next/link";
 import ProjectContainer from "../../components/projectsCardContainer";
 import "../../styles/dashMain.scss";
 
-function allProjects() {
+function Projects() {
   return (
     <>
       <DashSideBar />
@@ -32,4 +32,4 @@ function allProjects() {
   );
 }
 
-export default allProjects;
+export default Projects;
