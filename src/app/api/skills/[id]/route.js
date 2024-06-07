@@ -124,10 +124,3 @@ export async function GET(request) {
     );
   }
 }
-
-// Config to disable body parsing for form data handling
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};

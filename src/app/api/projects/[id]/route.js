@@ -133,10 +133,3 @@ export async function PUT(request) {
     );
   }
 }
-
-// Config to disable body parsing for form data handling
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
