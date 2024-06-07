@@ -12,7 +12,7 @@ function allArticles() {
         <div className="cards_container">
           <div className="head_container">
             <h1 className="titles">articles</h1>
-            <Link className="add" href="#">
+            <Link className="add" href="/articles">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
