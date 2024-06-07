@@ -62,7 +62,7 @@ export default function ProjectsCardContainer({ limit }) {
       }
 
       console.log("project deleted successfully!");
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       console.error("Error deleting project:", error);
       // Display a user-friendly error message
