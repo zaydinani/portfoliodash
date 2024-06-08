@@ -7,7 +7,11 @@ export default withAuth({
       const { pathname } = req.nextUrl;
 
       // Allow access to the sign-in page and public assets
-      if (pathname === "/" || pathname.startsWith("/LOGO3.png")) {
+      if (
+        pathname === "/" ||
+        pathname.startsWith("/LOGO3.png") ||
+        pathname.startsWith("/api/")
+      ) {
         //console.log("User is not authenticated, redirecting to sign in");
         return true; // Allow access
       }
