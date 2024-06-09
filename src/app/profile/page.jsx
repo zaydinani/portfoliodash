@@ -22,6 +22,7 @@ const profile = async () => {
       />
       */}
       <Link href="/api/auth/signout?callbackUrl=/">logout</Link>
+      <Link href="/signup">create new account</Link>
     </div>
   );
 };
