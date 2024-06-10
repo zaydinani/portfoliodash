@@ -23,7 +23,7 @@ function signUp() {
 
     // Password validation with regular expression
     const passwordRegex =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>[\];'\\/])[A-Za-z\d!@#$%^&*(),.?":{}|<>[\];'\\/]{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       setError(
         "Password must contain at least one uppercase letter, lowercase letter, number, and symbol."
