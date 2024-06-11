@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-//import FroalaEditorComponent from "react-froala-wysiwyg";
+import FroalaEditorComponent from "react-froala-wysiwyg";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 
 import "../../styles/addArticle.scss";
 import "froala-editor/css/froala_style.min.css";
@@ -31,10 +30,7 @@ import "froala-editor/js/plugins/quick_insert.min.js";
 
 function AddArticle() {
   const router = useRouter();
-  const FroalaEditorComponent = dynamic(() => import("react-froala-wysiwyg"), {
-    loading: () => <p>Loading...</p>,
-    ssr: false, // Ensure the component is only rendered on the client-side
-  });
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [articleBannerImage, setArticleBannerImage] = useState(null); // State to store the selected image
@@ -184,6 +180,7 @@ function AddArticle() {
               lineWrap: true,
               maxWidth: 800,
             },
+            width: 800,
           }}
         />
         <button type="submit" onClick={handleSubmit} className="submit-button">
