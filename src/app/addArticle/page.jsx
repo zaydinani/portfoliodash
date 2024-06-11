@@ -1,8 +1,14 @@
 "use client";
-import { useState } from "react";
-import FroalaEditorComponent from "react-froala-wysiwyg";
+import React from "react";
+import { useState, useEffect } from "react";
+//import FroalaEditorComponent from "react-froala-wysiwyg";
 import { useRouter } from "next/navigation";
 
+import dynamic from "next/dynamic";
+
+const FroalaEditorComponent = dynamic(() => import("react-froala-wysiwyg"), {
+  ssr: false,
+});
 import "../../styles/addArticle.scss";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
@@ -93,96 +99,98 @@ function AddArticle() {
           accept="image/*"
           onChange={handleBannerImageChange}
         />
-        <FroalaEditorComponent
-          className="fixed-width-editor"
-          model={content}
-          onModelChange={handleModelChange}
-          config={{
-            placeholderText: "Start writing your article...",
-            toolbarButtons: [
-              "bold",
-              "italic",
-              "underline",
-              "strikeThrough",
-              "subscript",
-              "superscript",
-              "|",
-              "fontFamily",
-              "fontSize",
-              "color",
-              "inlineStyle",
-              "paragraphStyle",
-              "|",
-              "paragraphFormat",
-              "align",
-              "formatOL",
-              "formatUL",
-              "outdent",
-              "indent",
-              "|",
-              "quote",
-              "insertHR",
-              "-",
-              "insertLink",
-              "insertImage",
-              "insertVideo",
-              "embedly",
-              "insertFile",
-              "insertTable",
-              "|",
-              "emoticons",
-              "specialCharacters",
-              "insertHTML",
-              "insertCode",
-              "|",
-              "undo",
-              "redo",
-              "clearFormatting",
-              "selectAll",
-              "html",
-            ],
-            pluginsEnabled: [
-              "align",
-              "charCounter",
-              "codeBeautifier",
-              "codeView",
-              "colors",
-              "draggable",
-              "embedly",
-              "emoticons",
-              "fontFamily",
-              "fontSize",
-              "fullscreen",
-              "image",
-              "inlineStyle",
-              "link",
-              "lists",
-              "paragraphFormat",
-              "paragraphStyle",
-              "quickInsert",
-              "quote",
-              "specialCharacters",
-              "table",
-              "url",
-              "video",
-            ],
-            imageUpload: true,
-            videoUpload: true,
-            codeBeautifierOptions: {
-              end_with_newline: true,
-              indent_inner_html: true,
-              extra_liners: ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
-              brace_style: "expand",
-              indent_char: " ",
-              indent_size: 4,
-              wrap_line_length: 80,
-              wrap: true,
-              lineWrap: true,
-              maxWidth: 800,
-            },
-            width: 800,
-          }}
-        />
+        {FroalaEditorComponent && (
+          <FroalaEditorComponent
+            className="fixed-width-editor"
+            model={content}
+            onModelChange={handleModelChange}
+            config={{
+              placeholderText: "Start writing your article...",
+              toolbarButtons: [
+                "bold",
+                "italic",
+                "underline",
+                "strikeThrough",
+                "subscript",
+                "superscript",
+                "|",
+                "fontFamily",
+                "fontSize",
+                "color",
+                "inlineStyle",
+                "paragraphStyle",
+                "|",
+                "paragraphFormat",
+                "align",
+                "formatOL",
+                "formatUL",
+                "outdent",
+                "indent",
+                "|",
+                "quote",
+                "insertHR",
+                "-",
+                "insertLink",
+                "insertImage",
+                "insertVideo",
+                "embedly",
+                "insertFile",
+                "insertTable",
+                "|",
+                "emoticons",
+                "specialCharacters",
+                "insertHTML",
+                "insertCode",
+                "|",
+                "undo",
+                "redo",
+                "clearFormatting",
+                "selectAll",
+                "html",
+              ],
+              pluginsEnabled: [
+                "align",
+                "charCounter",
+                "codeBeautifier",
+                "codeView",
+                "colors",
+                "draggable",
+                "embedly",
+                "emoticons",
+                "fontFamily",
+                "fontSize",
+                "fullscreen",
+                "image",
+                "inlineStyle",
+                "link",
+                "lists",
+                "paragraphFormat",
+                "paragraphStyle",
+                "quickInsert",
+                "quote",
+                "specialCharacters",
+                "table",
+                "url",
+                "video",
+              ],
+              imageUpload: true,
+              videoUpload: true,
+              codeBeautifierOptions: {
+                end_with_newline: true,
+                indent_inner_html: true,
+                extra_liners: ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
+                brace_style: "expand",
+                indent_char: " ",
+                indent_size: 4,
+                wrap_line_length: 80,
+                wrap: true,
+                lineWrap: true,
+                maxWidth: 800,
+              },
+              width: 800,
+            }}
+          />
+        )}
         <button type="submit" onClick={handleSubmit} className="submit-button">
           Submit
         </button>
