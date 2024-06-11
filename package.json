@@ -13,12 +13,15 @@
     "@mapbox/node-pre-gyp": "^1.0.11",
     "axios": "^1.7.1",
     "bcrypt": "^5.1.1",
+    "font-awesome": "^4.7.0",
+    "froala-editor": "^4.2.0",
     "mongodb": "^6.6.1",
     "mongoose": "^8.3.4",
     "next": "^14.2.3",
     "next-auth": "^4.24.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-froala-wysiwyg": "^4.2.0",
     "sass": "^1.75.0"
   },
   "engines": {

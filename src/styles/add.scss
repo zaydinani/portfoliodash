@@ -1,4 +1,25 @@
 @import "_variables";
+.submit-button {
+  height: 2rem;
+  margin: 2rem;
+  width: 7rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: $button-main;
+  color: $headers-dark;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
+  transition: 0.5s ease-in-out;
+  letter-spacing: 3px;
+  &:hover {
+    scale: 1.01;
+    background-color: $hover;
+    color: black;
+  }
+}
 
 /* Add this to your styles/add.scss or the relevant stylesheet */
 .image-preview {

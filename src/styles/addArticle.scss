@@ -1,0 +1,78 @@
+@import "_variables";
+
+main {
+  @include flex(center, center, column, _);
+  h1 {
+    margin: 2rem 0;
+  }
+  form {
+    @include flex(_, _, column, 1rem);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background-color: $secondary-color-dark;
+    border-radius: 8px;
+    width: 865px;
+    .input {
+      height: 2rem;
+      width: 100%;
+      border-radius: 8px;
+      background-color: $button-secondary;
+      outline: none;
+      padding: 10px;
+      border: none;
+      &::placeholder {
+        color: $paragraph-font-dark;
+      }
+    }
+
+    .imageInput {
+      border: none;
+      padding: 0.5rem;
+      border-radius: 8px;
+      width: 100%;
+      background-color: $button-secondary;
+      color: $paragraph-font-dark;
+    }
+  }
+  .submit-button {
+    height: 2rem;
+    width: 7rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: $button-main;
+    color: $headers-dark;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    border: none;
+    transition: 0.5s ease-in-out;
+    letter-spacing: 3px;
+    &:hover {
+      scale: 1.01;
+      background-color: $hover;
+      color: black;
+    }
+  }
+  //ALERT MSGS
+  .alert {
+    width: 400px;
+    padding: 16px;
+    margin-top: 1rem;
+    .alert-title {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-family: "Poppins", sans-serif;
+    }
+    .alert-content {
+      margin: 0;
+      font-size: 18px;
+      font-family: "Open Sans", sans-serif;
+      color: #555555;
+    }
+  }
+  .alert-3-danger {
+    @include alert-3($danger-color);
+  }
+}
