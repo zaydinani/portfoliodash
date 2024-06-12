@@ -7,9 +7,8 @@ import Link from "next/link";
 import data from "../../data/data.json";
 
 function SignUp() {
-  // Changed to PascalCase
   const router = useRouter();
-  const [formData, setFormData] = useState({}); // Form data state
+  const [formData, setFormData] = useState({ name: "", password: "" }); // Form data state
   const [error, setError] = useState(null); // State for error messages
 
   const handleChange = (e) => {
@@ -67,7 +66,7 @@ function SignUp() {
             id="name"
             placeholder="Enter your name"
             onChange={handleChange}
-            value={formData.name || ""} // Default empty value
+            value={formData.name} // Ensure value is always controlled
             required
           />
           <input
@@ -77,7 +76,7 @@ function SignUp() {
             id="password"
             placeholder="Enter your password"
             onChange={handleChange}
-            value={formData.password || ""} // Default empty value
+            value={formData.password} // Ensure value is always controlled
             required
           />
           <button type="submit">Sign up</button>
