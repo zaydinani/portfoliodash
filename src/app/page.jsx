@@ -7,7 +7,6 @@ import { getSession } from "next-auth/react";
 //my styles
 import "../styles/auth.scss";
 import data from "../data/data.json";
-
 function Login() {
   const router = useRouter();
 
