@@ -1,13 +1,17 @@
 "use client";
+
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../../styles/auth.scss";
+import Link from "next/link";
 import data from "../../data/data.json";
 
 function SignUp() {
+  // Changed to PascalCase
   const router = useRouter();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({}); // Form data state
   const [error, setError] = useState(null); // State for error messages
+
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -16,35 +20,45 @@ function SignUp() {
       [name]: value,
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Password validation with regular expression
     const passwordRegex =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*(),.?":{}|<>[\];'\\/])[A-Za-z\d@#$%^&*(),.?":{}|<>[\];'\\/]{8,}$/;
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>[\];'\\/])[A-Za-z\d!@#$%^&*(),.?":{}|<>[\];'\\/]{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       setError(
         "Password must contain at least one uppercase letter, lowercase letter, number, and symbol."
       );
       return;
     }
-    const res = await fetch("/api/admins", {
-      method: "POST",
-      body: JSON.stringify({ formData }),
-      "content-type": "application/json",
-    });
-    if (!res.ok) {
-      const response = await res.json();
-      setErrorMessage(response.message);
-    } else {
-      router.refresh();
-      router.push("/dashboard");
+
+    try {
+      const res = await fetch("/api/admins", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        const response = await res.json();
+        setError(response.message);
+      } else {
+        router.refresh();
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
     }
   };
+
   return (
     <main>
       <div className="auth_container">
-        <img src={data["zayd-data"].about.logo} alt="" />
+        <img src={data["zayd-data"].about.logo} alt="Logo" />
         <form onSubmit={handleSubmit} method="post">
           <input
             className="input"
@@ -53,7 +67,7 @@ function SignUp() {
             id="name"
             placeholder="Enter your name"
             onChange={handleChange}
-            value={formData.name}
+            value={formData.name || ""} // Default empty value
             required
           />
           <input
@@ -61,32 +75,23 @@ function SignUp() {
             name="password"
             type="password"
             id="password"
-            placeholder="Enter your passoword"
+            placeholder="Enter your password"
             onChange={handleChange}
-            value={formData.password}
+            value={formData.password || ""} // Default empty value
             required
           />
-          {/* 
-          <input
-            className="input"
-            name="password"
-            type="password"
-            placeholder="confirm your passoword"
-            required
-            <p className="writing">
-              Or Sign In <Link href="/">here</Link>
-            </p>
-          />
-          */}
           <button type="submit">Sign up</button>
         </form>
         {/* Display errors */}
         {error && (
-          <div class="alert alert-3-danger">
-            <h3 class="alert-title">error</h3>
-            <p class="alert-content">{error}</p>
+          <div className="alert alert-3-danger">
+            <h3 className="alert-title">Error</h3>
+            <p className="alert-content">{error}</p>
           </div>
         )}
+        <p className="writing">
+          Or Sign In <Link href="/">here</Link>
+        </p>
       </div>
     </main>
   );
