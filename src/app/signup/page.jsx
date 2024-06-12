@@ -1,12 +1,10 @@
-"use client";
-//my styles
 import { useRouter } from "next/navigation";
-import react, { useState } from "react";
+import { useEffect, useState } from "react";
 import "../../styles/auth.scss";
 import Link from "next/link";
 import data from "../../data/data.json";
 
-function signUp() {
+function SignUp() {
   const router = useRouter();
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null); // State for error messages
@@ -23,7 +21,7 @@ function signUp() {
 
     // Password validation with regular expression
     const passwordRegex =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>[\];'\\/])[A-Za-z\d!@#$%^&*(),.?":{}|<>[\];'\\/]{8,}$/;
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*(),.?":{}|<>[\];'\\/])[A-Za-z\d@#$%^&*(),.?":{}|<>[\];'\\/]{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       setError(
         "Password must contain at least one uppercase letter, lowercase letter, number, and symbol."
@@ -93,4 +91,5 @@ function signUp() {
     </main>
   );
 }
-export default signUp;
+
+export default SignUp;
