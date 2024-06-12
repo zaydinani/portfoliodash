@@ -1,7 +1,7 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "../../styles/auth.scss";
-import Link from "next/link";
 import data from "../../data/data.json";
 
 function SignUp() {
