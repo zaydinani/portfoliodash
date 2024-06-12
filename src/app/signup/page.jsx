@@ -1,16 +1,15 @@
 "use client";
-
+//my styles
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import react, { useState } from "react";
 import "../../styles/auth.scss";
 import Link from "next/link";
 import data from "../../data/data.json";
 
-function SignUp() {
+function signUp() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ name: "", password: "" }); // Form data state
+  const [formData, setFormData] = useState({});
   const [error, setError] = useState(null); // State for error messages
-
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -19,7 +18,6 @@ function SignUp() {
       [name]: value,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,32 +30,23 @@ function SignUp() {
       );
       return;
     }
-
-    try {
-      const res = await fetch("/api/admins", {
-        method: "POST",
-        body: JSON.stringify({ formData }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!res.ok) {
-        const response = await res.json();
-        setError(response.message);
-      } else {
-        router.refresh();
-        router.push("/dashboard");
-      }
-    } catch (error) {
-      setError("An error occurred. Please try again.");
+    const res = await fetch("/api/admins", {
+      method: "POST",
+      body: JSON.stringify({ formData }),
+      "content-type": "application/json",
+    });
+    if (!res.ok) {
+      const response = await res.json();
+      setErrorMessage(response.message);
+    } else {
+      router.refresh();
+      router.push("/dashboard");
     }
   };
-
   return (
     <main>
       <div className="auth_container">
-        <img src={data["zayd-data"].about.logo} alt="Logo" />
+        <img src={data["zayd-data"].about.logo} alt="" />
         <form onSubmit={handleSubmit} method="post">
           <input
             className="input"
@@ -66,7 +55,7 @@ function SignUp() {
             id="name"
             placeholder="Enter your name"
             onChange={handleChange}
-            value={formData.name} // Ensure value is always controlled
+            value={formData.name}
             required
           />
           <input
@@ -74,26 +63,34 @@ function SignUp() {
             name="password"
             type="password"
             id="password"
-            placeholder="Enter your password"
+            placeholder="Enter your passoword"
             onChange={handleChange}
-            value={formData.password} // Ensure value is always controlled
+            value={formData.password}
             required
           />
+          {/* 
+          <input
+            className="input"
+            name="password"
+            type="password"
+            placeholder="confirm your passoword"
+            required
+            <p className="writing">
+              Or Sign In <Link href="/">here</Link>
+            </p>
+          />
+          */}
           <button type="submit">Sign up</button>
         </form>
         {/* Display errors */}
         {error && (
-          <div className="alert alert-3-danger">
-            <h3 className="alert-title">Error</h3>
-            <p className="alert-content">{error}</p>
+          <div class="alert alert-3-danger">
+            <h3 class="alert-title">error</h3>
+            <p class="alert-content">{error}</p>
           </div>
         )}
-        <p className="writing">
-          Or Sign In <Link href="/">here</Link>
-        </p>
       </div>
     </main>
   );
 }
-
-export default SignUp;
+export default signUp;
