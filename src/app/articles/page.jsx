@@ -26,10 +26,7 @@ function allArticles() {
             </Link>
           </div>
 
-          <div className="projects">
-            <ProjectsCard />
-            <ProjectsCard />
-          </div>
+          <div className="projects"></div>
         </div>
       </div>
     </>
