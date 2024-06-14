@@ -37,6 +37,11 @@ export const POST = async (req) => {
   const filePath = path.join(process.cwd(), "public", "skills", fileName);
 
   try {
+    // Ensure the directory exists
+    await fs.mkdir(path.join(process.cwd(), "public", "skills"), {
+      recursive: true,
+    });
+
     await fs.writeFile(filePath, buffer);
     const imageUrl = `/skills/${fileName}`;
 
@@ -45,7 +50,7 @@ export const POST = async (req) => {
 
     return NextResponse.json({ message: "Skill added successfully!" });
   } catch (error) {
-    console.error(error);
+    console.error("Error writing file:", error);
     return NextResponse.json(
       { message: "Error adding skill" },
       { status: 500 }
