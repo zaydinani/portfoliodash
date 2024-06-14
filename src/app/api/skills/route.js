@@ -38,15 +38,20 @@ export const POST = async (req) => {
 
   try {
     // Ensure the directory exists
-    await fs.mkdir(path.join(process.cwd(), "public", "skills"), {
-      recursive: true,
-    });
+    const dirPath = path.join(process.cwd(), "public", "skills");
+    console.log(`Ensuring directory exists: ${dirPath}`);
+    await fs.mkdir(dirPath, { recursive: true });
 
+    console.log(`Writing file to: ${filePath}`);
     await fs.writeFile(filePath, buffer);
+    console.log("File written successfully");
+
     const imageUrl = `/skills/${fileName}`;
 
     const newSkill = new Skill({ name, description, imageUrl });
     await newSkill.save();
+
+    console.log("Skill added to the database");
 
     return NextResponse.json({ message: "Skill added successfully!" });
   } catch (error) {
