@@ -46,7 +46,7 @@ export const POST = async (req) => {
     await fs.writeFile(filePath, buffer);
     console.log("File written successfully");
 
-    const imageUrl = `../images/${fileName}`;
+    const imageUrl = `/images/${fileName}`;
 
     const newSkill = new Skill({ name, description, imageUrl });
     await newSkill.save();
