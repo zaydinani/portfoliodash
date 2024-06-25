@@ -34,11 +34,11 @@ export const POST = async (req) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const fileName = `${Date.now()}-${file.name}`;
-  const filePath = path.join(process.cwd(), "src", "images", fileName);
+  const filePath = path.join(process.cwd(), "images", fileName);
 
   try {
     // Ensure the directory exists
-    const dirPath = path.join(process.cwd(), "src", "images");
+    const dirPath = path.join(process.cwd(), "images");
     console.log(`Ensuring directory exists: ${dirPath}`);
     await fs.mkdir(dirPath, { recursive: true });
 
