@@ -34,11 +34,11 @@ export const POST = async (req) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const fileName = `${Date.now()}-${file.name}`;
-  const filePath = path.join(process.cwd(), "images", fileName);
+  const filePath = path.join(process.cwd(), "public", "skills", fileName);
 
   try {
     // Ensure the directory exists
-    const dirPath = path.join(process.cwd(), "images");
+    const dirPath = path.join(process.cwd(), "public", "skills");
     console.log(`Ensuring directory exists: ${dirPath}`);
     await fs.mkdir(dirPath, { recursive: true });
 
@@ -46,7 +46,7 @@ export const POST = async (req) => {
     await fs.writeFile(filePath, buffer);
     console.log("File written successfully");
 
-    const imageUrl = `/images/${fileName}`;
+    const imageUrl = `/skills/${fileName}`;
 
     const newSkill = new Skill({ name, description, imageUrl });
     await newSkill.save();
