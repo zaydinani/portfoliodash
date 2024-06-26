@@ -34,11 +34,26 @@ export const POST = async (req) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const fileName = `${Date.now()}-${file.name}`;
-  const filePath = path.join(process.cwd(), "public", "skills", fileName);
+  const filePath = path.join(
+    "/opt",
+    "render",
+    "project",
+    "src",
+    "public",
+    "skills",
+    fileName
+  );
 
   try {
     // Ensure the directory exists
-    const dirPath = path.join(process.cwd(), "public", "skills");
+    const dirPath = path.join(
+      "/opt",
+      "render",
+      "project",
+      "src",
+      "public",
+      "skills"
+    );
     console.log(`Ensuring directory exists: ${dirPath}`);
     await fs.mkdir(dirPath, { recursive: true });
 
