@@ -35,20 +35,19 @@ export const POST = async (req) => {
   const buffer = Buffer.from(await file.arrayBuffer());
   const fileName = `${Date.now()}-${file.name}`;
   const filePath = path.join(process.cwd(), "public", "skills", fileName);
-
   try {
     // Ensure the directory exists
     const dirPath = path.join(process.cwd(), "public", "skills");
     console.log(`Ensuring directory exists: ${dirPath}`);
     await fs.mkdir(dirPath, { recursive: true });
 
-    // Add write permission to the file
-    console.log(`Changing permissions for: ${filePath}`);
-    await fs.chmod(filePath, 0o755); // 0o755 grants read, write, and execute permissions
-
     console.log(`Writing file to: ${filePath}`);
     await fs.writeFile(filePath, buffer);
     console.log("File written successfully");
+
+    // Change permissions after writing the file
+    console.log(`Changing permissions for: ${filePath}`);
+    await fs.chmod(filePath, 0o755); // 0o755 grants read, write, and execute permissions
 
     const imageUrl = `/skills/${fileName}`;
 
