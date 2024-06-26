@@ -42,6 +42,10 @@ export const POST = async (req) => {
     console.log(`Ensuring directory exists: ${dirPath}`);
     await fs.mkdir(dirPath, { recursive: true });
 
+    // Add write permission to the file
+    console.log(`Changing permissions for: ${filePath}`);
+    await fs.chmod(filePath, 0o755); // 0o755 grants read, write, and execute permissions
+
     console.log(`Writing file to: ${filePath}`);
     await fs.writeFile(filePath, buffer);
     console.log("File written successfully");
